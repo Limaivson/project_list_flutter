@@ -1,8 +1,6 @@
-
-
-// abstract class TaskRepository {
-//   Future<List<Task>> getTasks();
-//   Future<void> addTask(Task task);
-//   Future<void> updateTask(Task task);
-//   Future<void> deleteTask(int taskId);
-// }
+abstract class TaskRepository {
+  Future<List<String>> getTasks();
+  Future<void> addTask(String task);
+  Future<void> updateTask(String task);
+  Future<void> deleteTask(int taskId);
+}
