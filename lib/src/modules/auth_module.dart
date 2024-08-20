@@ -6,5 +6,7 @@ class AuthModule extends Module {
   @override
   void routes(r) {
     r.child(Modular.initialRoute, child: (context) => const AuthPage());
+    r.child('/auth_page/',
+        child: (context) => const AuthPage());
   }
 }

@@ -11,11 +11,21 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> with WindowListener {
-
-  @override
+@override
   Widget build(BuildContext context) {
     return Container(
-      child: const Text('Hello World'),
+      child: const Form(child: 
+        Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Email'
+              ),
+            )
+          ],
+        )
+      ),
     );
   }
+
 }

@@ -10,15 +10,15 @@ class AppWidget extends StatelessWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'FAM - Farmácia Automatizada de Medicamentos',
+      title: 'Lista',
       theme: ThemeData(
         colorScheme: const ColorScheme.light(
           background: Color(0xFFFFFFFF),
-          onBackground: Color(0xFFF8FDFF),
-          primary: Color(0xFF144232),
-          secondary: Color(0xFFBCEBDE),
-          onSecondary: Colors.black,
-          onPrimary: Colors.white,
+          // onBackground: Color(0xFFF8FDFF),
+          // primary: Color(0xFF144232),
+          // secondary: Color(0xFFBCEBDE),
+          // onSecondary: Colors.black,
+          // onPrimary: Colors.white,
         ),
       ),
        routerConfig: Modular.routerConfig,
