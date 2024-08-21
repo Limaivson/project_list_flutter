@@ -2,15 +2,18 @@ import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datas
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/auth_repository.dart'; 
 
 class LoginUseCase {
-  final AuthRepository authRepository;
+  final AuthRepository repository;
 
-  LoginUseCase(this.authRepository);
+  LoginUseCase(this.repository);
 
   Future<String> execute(String username, String password) async {
     try {
-      return await authRepository.login(username, password);
-    } on AuthError catch (e) {
-      throw e;
+      final token = await repository.login(username, password);
+      return token;
+    } on ExternalError catch (e) {
+      throw CredentialsError('Failed to login: ${e.message}', e.stackTrace);
+    } catch (e, stackTrace) {
+      throw AuthError('Unexpected error during login', stackTrace);
     }
   }
 }
