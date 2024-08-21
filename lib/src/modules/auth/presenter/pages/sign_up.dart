@@ -21,21 +21,27 @@ class _AuthPageState extends State<AuthPage> with WindowListener {
         child: const Form(
           child: Column(
             children: [
-              Text('Welcome'),
-              Text('Enter your credentials'),
+              Text('Sign up'),
+              Text('create your account'),
               Column(
                 children: [
                   TextField(
-                decoration: InputDecoration(
-                hintText: 'Enter your email',
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                hintText: 'Enter your password',
-                ),
-              ),
-              TextButton(onPressed: null, child: Text('Login')),
+                      decoration: InputDecoration(
+                        hintText: 'UserName',
+                    ),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Password',
+                    ),
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Confirm password',
+                    ),
+                  ),
+                  TextButton(onPressed: null, child: Text('Sign up')),
+                  Text('or'),
                 ],
               ),
               InkWell(child: Text('Forget password?')),
