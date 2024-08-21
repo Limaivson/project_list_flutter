@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:project_list_fliutter/src/modules/auth/presenter/pages/sign_up.dart';
 import 'package:window_manager/window_manager.dart';
 
 class SignInPage extends StatefulWidget {
@@ -17,12 +16,12 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: const Form(
+        child: Form(
           child: Column(
             children: [
               Text('Welcome'),
               Text('Enter your credentials'),
-              Column(
+              const Column(
                 children: [
                   TextField(
                     decoration: InputDecoration(
@@ -36,7 +35,14 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                   Row(
                     children: [
                       Text('Already have an account?'),
-                      InkWell(child: Text('Login')),
+                      TextButton(child: Text('Login'), 
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AuthPage()),
+                        );
+                      },
+                    ),
                   ],
               )
             ],

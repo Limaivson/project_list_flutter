@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:project_list_fliutter/src/modules/auth/presenter/pages/sign_in.dart';
 import 'package:window_manager/window_manager.dart';
 
 class AuthPage extends StatefulWidget {
@@ -18,37 +17,42 @@ class _AuthPageState extends State<AuthPage> with WindowListener {
     return Scaffold(
       body: Container(
 
-        child: const Form(
+        child: Form(
           child: Column(
             children: [
               Text('Sign up'),
               Text('create your account'),
-              Column(
+              const Column(
                 children: [
                   TextField(
                       decoration: InputDecoration(
-                        hintText: 'UserName',
+                        labelText: 'UserName'
+                    ),
+                  ),
+                  TextField(
+                    obscuringCharacter: "*",
+                    decoration: InputDecoration(
+                      labelText: 'Password',
                     ),
                   ),
                   TextField(
                     decoration: InputDecoration(
-                      hintText: 'Password',
+                      labelText: 'Confirm Password',
                     ),
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Confirm password',
-                    ),
-                  ),
-                  TextButton(onPressed: null, child: Text('Sign up')),
-                  Text('or'),
+                  ElevatedButton(onPressed: null, child: Text('Sign up')),
                 ],
               ),
-              InkWell(child: Text('Forget password?')),
               Row(
                 children: [
                   Text('Dont have an account?'),
-                  InkWell(child: Text('SignUp')),
+                  TextButton(child: Text('SignUp'), 
+                    onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const SignInPage()),
+                      );
+                  },),
                 ],
               )
             ],
