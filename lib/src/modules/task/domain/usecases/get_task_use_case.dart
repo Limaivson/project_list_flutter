@@ -10,7 +10,7 @@ class GetTaskUseCase {
     try {
       return await repository.getTasks();
     } on ExternalError catch (e) {
-      throw TasksError('Failed to get tasks: ${e.message}', e.stackTrace);
+      throw GetTaskError('Failed to get tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {
       throw TasksError('Unexpected error', stackTrace);
     }

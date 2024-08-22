@@ -11,7 +11,7 @@ class UpdateTaskUseCase {
       final removeTask = await repository.updateTask(task);
       return removeTask;
     } on ExternalError catch (e) {
-      throw TasksError('Failed to update tasks: ${e.message}', e.stackTrace);
+      throw UpdateTaskError('Failed to update tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {
       throw TasksError('Unexpected error', stackTrace);
     }

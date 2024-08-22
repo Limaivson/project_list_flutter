@@ -10,7 +10,7 @@ class RemoveTaskUseCase {
     try {
       final removeTask = await repository.deleteTask(task);
       return removeTask;
-    } on ExternalError catch (e) {
+    } on RemoveTaskError catch (e) {
       throw TasksError('Failed to remove tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {
       throw TasksError('Unexpected error', stackTrace);

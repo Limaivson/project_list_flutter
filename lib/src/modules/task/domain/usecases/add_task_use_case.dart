@@ -10,8 +10,8 @@ class AddTaskUseCase {
     try {
       final removeTask = await repository.addTask(task);
       return removeTask;
-    } on ExternalError catch (e) {
-      throw TasksError('Failed to create tasks: ${e.message}', e.stackTrace);
+    } on CreateTaskError catch (e) {
+      throw ('Failed to create tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {
       throw TasksError('Unexpected error', stackTrace);
     }
