@@ -16,7 +16,6 @@ class _AuthPageState extends State<AuthPage> with WindowListener {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-
         child: Form(
           child: Column(
             children: [
