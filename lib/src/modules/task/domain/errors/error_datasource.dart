@@ -16,6 +16,10 @@ class ExternalError extends TasksError {
   const ExternalError(super.message, [super.stackTrace]);
 }
 
+class GetTaskError extends TasksError {
+  const GetTaskError(super.message, [super.stackTrace]);
+}
+
 class CreateTaskError extends TasksError {
   const CreateTaskError(super.message, [super.stackTrace]);
 }

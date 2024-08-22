@@ -18,7 +18,8 @@ class AuthDatasourceExternal implements AuthDatasource {
         uri,
         body: AuthAdapter.encodeProto(User()
           ..name = username
-          ..password = password),
+          ..password = password
+          ),
       );
 
       if (response.statusCode == 200) {

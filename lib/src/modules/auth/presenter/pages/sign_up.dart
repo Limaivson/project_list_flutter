@@ -20,8 +20,8 @@ class _AuthPageState extends State<AuthPage> with WindowListener {
         child: Form(
           child: Column(
             children: [
-              Text('Sign up'),
-              Text('create your account'),
+              const Text('Sign up'),
+              const Text('create your account'),
               const Column(
                 children: [
                   TextField(
@@ -45,8 +45,8 @@ class _AuthPageState extends State<AuthPage> with WindowListener {
               ),
               Row(
                 children: [
-                  Text('Dont have an account?'),
-                  TextButton(child: Text('SignUp'), 
+                  const Text('Dont have an account?'),
+                  TextButton(child: const Text('SignUp'), 
                     onPressed: () {
                         Navigator.push(
                           context,

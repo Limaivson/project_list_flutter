@@ -19,8 +19,8 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
         child: Form(
           child: Column(
             children: [
-              Text('Welcome'),
-              Text('Enter your credentials'),
+              const Text('Welcome'),
+              const Text('Enter your credentials'),
               const Column(
                 children: [
                   TextField(
@@ -31,11 +31,11 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                   TextButton(onPressed: null, child: Text('Login')),
                   ],
                   ),
-                  InkWell(child: Text('Forget password?')),
+                  const InkWell(child: Text('Forget password?')),
                   Row(
                     children: [
-                      Text('Already have an account?'),
-                      TextButton(child: Text('Login'), 
+                      const Text('Already have an account?'),
+                      TextButton(child: const Text('Login'), 
                       onPressed: () {
                         Navigator.push(
                           context,

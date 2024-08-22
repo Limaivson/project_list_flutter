@@ -22,7 +22,6 @@ class AuthAdapter {
         ..id = userModel.id
         ..name = userModel.name
         ..password = userModel.password;
-
       return userProto.writeToBuffer();
     } catch (e) {
       throw Error;
