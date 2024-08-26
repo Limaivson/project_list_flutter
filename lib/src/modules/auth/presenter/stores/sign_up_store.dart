@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/usecases/register_use_case.dart';
+import 'package:project_list_fliutter/src/modules/auth/presenter/pages/sign_in.dart';
 
 part 'sign_up_store.g.dart';
 
@@ -62,6 +65,16 @@ abstract class _SignUpStore with Store {
       isLoading = true;
       errorMessage = '';
       final userId = await registerUseCase.execute(username, password);
+      print('ok');
+
+      //chamar o modulo de task
+
+      // if (userId == true) {
+      //   Navigator.of(context as BuildContext).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => SignInPage())
+      //   );
+      // }
+      Modular.to.navigate('/tasks');
       
     } on CredentialsError catch (e) {
       errorMessage = e.message;

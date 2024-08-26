@@ -3,7 +3,7 @@ import 'package:project_list_fliutter/src/modules/auth/infra/datasources/auth_da
 import 'package:project_list_fliutter/src/modules/auth/infra/adapters/auth_adapter.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthDatasource datasource;
+  final IAuthDatasource datasource;
 
   AuthRepositoryImpl(this.datasource);
 

@@ -7,7 +7,7 @@ import 'package:project_list_fliutter/src/modules/auth/infra/datasources/auth_da
 import 'package:project_list_fliutter/src/modules/auth/infra/adapters/auth_adapter.dart';
 import 'package:project_list_fliutter/src/modules/auth/external/datasources/server_routes.dart';
 
-class AuthDatasourceExternal implements AuthDatasource {
+class AuthDatasourceExternal implements IAuthDatasource {
   final http.Client client;
 
   AuthDatasourceExternal(this.client);
