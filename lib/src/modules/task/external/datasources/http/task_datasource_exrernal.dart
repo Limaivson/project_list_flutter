@@ -31,5 +31,4 @@ class TaskDatasourceExternal implements ITaskDatasource {
     throw UnimplementedError();
   }
 
-  
 }

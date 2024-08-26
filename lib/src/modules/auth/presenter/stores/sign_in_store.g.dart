@@ -80,6 +80,14 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
+  late final _$loginAsyncAction =
+      AsyncAction('_FormStore.login', context: context);
+
+  @override
+  Future<void> login() {
+    return _$loginAsyncAction.run(() => super.login());
+  }
+
   late final _$_FormStoreActionController =
       ActionController(name: '_FormStore', context: context);
 
