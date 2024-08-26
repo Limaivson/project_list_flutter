@@ -5,6 +5,7 @@ class AuthAdapter {
   static User decodeProto(Uint8List encodedUserProto) {
     try {
       final userProto = User.fromBuffer(encodedUserProto);
+      print(userProto.name);
       return userProto;
     } catch (e) {
       throw Error;

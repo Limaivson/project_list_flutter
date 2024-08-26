@@ -54,7 +54,7 @@ abstract class _SignUpStore with Store {
   @action
   Future<void> register() async {
     if (!isValid) {
-      errorMessage = 'Please fill in all fields correctly';
+      errorMessage = 'invalido';
       return;
     }
 
@@ -62,12 +62,11 @@ abstract class _SignUpStore with Store {
       isLoading = true;
       errorMessage = '';
       final userId = await registerUseCase.execute(username, password);
-
-      print('User ID: $userId');
+      
     } on CredentialsError catch (e) {
       errorMessage = e.message;
     } catch (e) {
-      errorMessage = 'Unexpected error occurred';
+      errorMessage = 'Erro';
     } finally {
       isLoading = false;
     }

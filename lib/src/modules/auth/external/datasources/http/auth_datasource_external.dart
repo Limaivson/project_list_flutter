@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
@@ -13,20 +15,28 @@ class AuthDatasourceExternal implements AuthDatasource {
   @override
   Future<User> login(String username, String password) async {
     try {
-      final uri = Uri.parse(loginRoute);
-      final response = await client.post(
-        uri,
-        body: AuthAdapter.encodeProto(User()
-          ..name = username
-          ..password = password),
-      );
+      await register(username, password);
+      throw const ExternalError('Usuário não existe, por isso foi registrado.');
+    } on ExternalError catch (e) {
+      if (e.message.contains('User already exists')) {
+        final uri = Uri.parse(loginRoute);
+        final response = await client.post(
+          uri,
+          body: AuthAdapter.encodeProto(User()
+            ..name = username
+            ..password = password),
+        );
+        print('cheguei');
 
-      if (response.statusCode == 200) {
-        final userProto = response.bodyBytes;
-        return AuthAdapter.decodeProto(userProto);
+        if (response.statusCode == 200) {
+          final userProto = response.bodyBytes;
+          return AuthAdapter.decodeProto(userProto);
+        } else {
+          throw const ExternalError(
+              'Falha ao fazer login. Verifique suas credenciais.');
+        }
       } else {
-        throw const ExternalError(
-            'Falha ao fazer login. Verifique suas credenciais.');
+        throw ExternalError('Erro inesperado durante o login: ${e.message}');
       }
     } catch (e) {
       throw const ExternalError('Não foi possível realizar o login.');
@@ -34,7 +44,7 @@ class AuthDatasourceExternal implements AuthDatasource {
   }
 
   @override
-  Future<User> register(String username, String password) async {
+  Future<bool> register(String username, String password) async {
     try {
       final uri = Uri.parse(signOUUserRoute);
       final response = await client.post(
@@ -42,22 +52,20 @@ class AuthDatasourceExternal implements AuthDatasource {
         body: AuthAdapter.encodeProto(User()
           ..name = username
           ..password = password),
-        headers: {
-          'Content-Type': 'application/x-protobuf',
-        },
       );
 
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.bodyBytes.length} bytes');
-
       if (response.statusCode == 200) {
-        final userProto = response.bodyBytes;
-        return AuthAdapter.decodeProto(userProto);
+        Map<String, dynamic> responseJson = json.decode(response.body);
+        if (responseJson['user']) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
-        throw const ExternalError('Failed to register. Check your data.');
+        return false;
       }
     } catch (e) {
-      throw const ExternalError('Failed to perform registration.');
+      throw ExternalError('Failed to perform registration: ${e.toString()}');
     }
   }
 

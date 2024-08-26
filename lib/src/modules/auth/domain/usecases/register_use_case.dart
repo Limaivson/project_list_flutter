@@ -6,7 +6,7 @@ class RegisterUseCase {
 
   RegisterUseCase(this.repository);
 
-  Future<String> execute(String username, String password) async {
+  Future<bool> execute(String username, String password) async {
     try {
       final userId = await repository.register(username, password);
       return userId;

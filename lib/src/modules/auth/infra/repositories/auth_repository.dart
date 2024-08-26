@@ -31,10 +31,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<String> register(String username, String password) async {
+  Future<bool> register(String username, String password) async {
     try {
       final userProto = await datasource.register(username, password);
-      return userProto.id;
+      return userProto;
     } catch (e) {
       throw Error();
     }

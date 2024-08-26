@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
 import 'package:project_list_fliutter/src/modules/auth/presenter/pages/components/costumButton.dart';
 import 'package:project_list_fliutter/src/modules/auth/presenter/pages/sign_up.dart';
 import 'package:project_list_fliutter/src/modules/auth/presenter/stores/sign_in_store.dart';
@@ -15,63 +14,48 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> with WindowListener {
-  final formStore = FormStore();
+  final formStore = Modular.get<FormStore>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          width: 600,
-          padding: const EdgeInsets.all(36),
-          child: Form(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+      appBar: AppBar(
+        title: const Text('Sign In'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Observer(
+          builder: (_) {
+            return Column(
               children: [
-                const Text(
-                  'Welcome',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                if (formStore.errorMessage.isNotEmpty)
+                  Text(
+                    formStore.errorMessage,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                TextField(
+                  decoration: const InputDecoration(labelText: 'Username'),
+                  onChanged: formStore.setUsername,
                 ),
-                const Text('Enter your credentials',
-                    style: TextStyle(fontSize: 17)),
-                TextFormField(
-                  onChanged: (value) => formStore.setUsername(value),
-                  decoration: const InputDecoration(
-                      hintText: 'Ex: Laura',
-                      hintStyle: TextStyle(fontSize: 13),
-                      label: Text('UserName'),
-                      labelStyle: TextStyle(fontSize: 13)),
+                TextField(
+                  decoration: const InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  onChanged: formStore.setPassword,
                 ),
-                TextFormField(
-                  onChanged: (value) => formStore.setPassword(value),
-                  decoration: const InputDecoration(
-                      hintText: '****',
-                      hintStyle: TextStyle(fontSize: 13),
-                      label: Text('Password'),
-                      labelStyle: TextStyle(fontSize: 13)),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: formStore.isLoading
+                      ? null
+                      : () {
+                          formStore.login();
+                        },
+                  child: formStore.isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text('Sign In'),
                 ),
-                const SizedBox(height: 40),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Already have an account?'),
-                    const SizedBox(width: 8),
-                    Observer(
-                      builder: (_) => formStore.isValid
-                          ? InkWell(
-                              onTap: () {
-                                Modular.to.navigate('/sign_up/',
-                                    arguments: 'Dynamic Value');
-                              },
-                              child: const CustomButton(isValid: true),
-                            )
-                          : const CustomButton(isValid: false),
-                    )
-                  ],
-                )
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
