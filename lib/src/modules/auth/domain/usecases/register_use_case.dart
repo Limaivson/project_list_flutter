@@ -6,9 +6,9 @@ class RegisterUseCase {
 
   RegisterUseCase(this.repository);
 
-  Future<String> execute(String username, String password, String email) async {
+  Future<String> execute(String username, String password) async {
     try {
-      final userId = await repository.register(username, password, email);
+      final userId = await repository.register(username, password);
       return userId;
     } on ExternalError catch (e) {
       throw CredentialsError('Failed to register: ${e.message}', e.stackTrace);

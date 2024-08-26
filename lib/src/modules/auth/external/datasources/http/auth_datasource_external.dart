@@ -18,15 +18,15 @@ class AuthDatasourceExternal implements AuthDatasource {
         uri,
         body: AuthAdapter.encodeProto(User()
           ..name = username
-          ..password = password
-          ),
+          ..password = password),
       );
 
       if (response.statusCode == 200) {
         final userProto = response.bodyBytes;
         return AuthAdapter.decodeProto(userProto);
       } else {
-        throw const ExternalError('Falha ao fazer login. Verifique suas credenciais.');
+        throw const ExternalError(
+            'Falha ao fazer login. Verifique suas credenciais.');
       }
     } catch (e) {
       throw const ExternalError('Não foi possível realizar o login.');
@@ -34,25 +34,30 @@ class AuthDatasourceExternal implements AuthDatasource {
   }
 
   @override
-  Future<User> register(String username, String password, String email) async {
+  Future<User> register(String username, String password) async {
     try {
       final uri = Uri.parse(signOUUserRoute);
       final response = await client.post(
         uri,
         body: AuthAdapter.encodeProto(User()
           ..name = username
-          ..password = password
-          ), 
+          ..password = password),
+        headers: {
+          'Content-Type': 'application/x-protobuf',
+        },
       );
 
-      if (response.statusCode == 201) {
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.bodyBytes.length} bytes');
+
+      if (response.statusCode == 200) {
         final userProto = response.bodyBytes;
         return AuthAdapter.decodeProto(userProto);
       } else {
-        throw const ExternalError('Falha ao registrar. Verifique seus dados.');
+        throw const ExternalError('Failed to register. Check your data.');
       }
     } catch (e) {
-      throw const ExternalError('Não foi possível realizar o registro.');
+      throw const ExternalError('Failed to perform registration.');
     }
   }
 

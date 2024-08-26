@@ -103,6 +103,14 @@ mixin _$SignUpStore on _SignUpStore, Store {
     });
   }
 
+  late final _$registerAsyncAction =
+      AsyncAction('_SignUpStore.register', context: context);
+
+  @override
+  Future<void> register() {
+    return _$registerAsyncAction.run(() => super.register());
+  }
+
   late final _$_SignUpStoreActionController =
       ActionController(name: '_SignUpStore', context: context);
 
