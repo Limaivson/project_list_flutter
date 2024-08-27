@@ -5,7 +5,6 @@ class AuthAdapter {
   static User decodeProto(Uint8List encodedUserProto) {
     try {
       final userProto = User.fromBuffer(encodedUserProto);
-      print(userProto.name);
       return userProto;
     } catch (e) {
       throw Error;
@@ -15,9 +14,9 @@ class AuthAdapter {
   static Uint8List encodeProto(User userModel) {
     try {
       final userProto = User();
-      userProto.id = userModel.id;
-      userProto.name = userModel.name;
-      userProto.password = userModel.password;
+        userProto.id = userModel.id;
+        userProto.name = userModel.name;
+        userProto.password = userModel.password;
       return userProto.writeToBuffer();
     } catch (e) {
       throw Error;

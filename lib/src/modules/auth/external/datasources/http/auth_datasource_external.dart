@@ -33,7 +33,7 @@ class AuthDatasourceExternal implements IAuthDatasource {
         final responseBodyString = String.fromCharCodes(response.bodyBytes);
 
         if (responseBodyString == 'User not found') {
-          //verficiar se é correto a chamada aqui
+          //verficiar se é correto a chamada aqui (nao é)
           Modular.to.navigate('/sign_up');
           throw const ExternalError('Usuário não encontrado.');
         } else {

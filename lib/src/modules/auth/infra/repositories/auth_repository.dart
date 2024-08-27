@@ -7,6 +7,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl(this.datasource);
 
+  //retornar um User
   @override
   Future<String> login(String username, String password) async {
     try {

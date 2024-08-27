@@ -14,6 +14,7 @@ abstract class _SignUpStore with Store {
 
   _SignUpStore(this.registerUseCase);
 
+  //apenas variavel
   @observable
   String username = '';
 
@@ -58,6 +59,7 @@ abstract class _SignUpStore with Store {
   Future<void> register() async {
     if (!isValid) {
       errorMessage = 'invalido';
+      //errei - usar else 
       return;
     }
 
@@ -65,7 +67,6 @@ abstract class _SignUpStore with Store {
       isLoading = true;
       errorMessage = '';
       final userId = await registerUseCase.execute(username, password);
-      print('ok');
 
       //chamar o modulo de task
 
@@ -74,6 +75,8 @@ abstract class _SignUpStore with Store {
       //     MaterialPageRoute(builder: (context) => SignInPage())
       //   );
       // }
+
+      //reaction para o user que ira mudar e chamar a pagina 
       Modular.to.navigate('/tasks');
       
     } on CredentialsError catch (e) {
