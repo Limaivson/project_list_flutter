@@ -8,8 +8,8 @@ class UpdateTaskUseCase {
 
   Future<void> updateTask(String task) async {
     try {
-      final removeTask = await repository.updateTask(task);
-      return removeTask;
+      //final removeTask = await repository.updateTask(task);
+      //return removeTask;
     } on ExternalError catch (e) {
       throw UpdateTaskError('Failed to update tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {

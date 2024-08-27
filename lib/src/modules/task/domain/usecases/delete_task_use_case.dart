@@ -8,8 +8,8 @@ class RemoveTaskUseCase {
 
   Future<void> deleteTask(int task) async {
     try {
-      final removeTask = await repository.deleteTask(task);
-      return removeTask;
+      //final removeTask = await repository.deleteTask(task);
+      //return removeTask;
     } on RemoveTaskError catch (e) {
       throw TasksError('Failed to remove tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {

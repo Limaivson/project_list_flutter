@@ -1,8 +1,8 @@
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
-import 'package:project_list_fliutter/src/modules/auth/domain/repositories/auth_repository.dart';
+import 'package:project_list_fliutter/src/modules/auth/domain/repositories/is_logout_repository.dart';
 
 class LogoutUseCase {
-  final AuthRepository repository;
+  final ILogOutRepository repository;
 
   LogoutUseCase(this.repository);
 

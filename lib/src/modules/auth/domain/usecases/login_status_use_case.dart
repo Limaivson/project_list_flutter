@@ -1,9 +1,9 @@
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
-import 'package:project_list_fliutter/src/modules/auth/domain/repositories/auth_repository.dart'; 
+import 'package:project_list_fliutter/src/modules/auth/domain/repositories/is_logged_repository.dart'; 
 
 
 class CheckLoginStatusUseCase {
-  final AuthRepository repository;
+  final IsLoggedRepository repository;
 
   CheckLoginStatusUseCase(this.repository);
 
