@@ -31,7 +31,8 @@ class AuthModule extends Module {
 
   @override
   void routes(r) {
-    r.child(Modular.initialRoute, child: (context) => SignUpPage());
+    r.child(Modular.initialRoute, child: (context) => SignInPage());
+    r.child('/sign_up', child: (context) => SignUpPage());
     //chamar o modulo de task
     r.child('/tasks', child: (context) => TaskPage());
   }

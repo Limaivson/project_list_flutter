@@ -11,6 +11,7 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   final TaskStore taskStore = TaskStore();
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +23,33 @@ class _TaskPageState extends State<TaskPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Input field
-            TextField(
-              onChanged: taskStore.setNewTask,
-              decoration: const InputDecoration(
-                labelText: 'Enter a task',
-              ),
-              onSubmitted: (_) => taskStore.addTask(),
+            Observer(
+              builder: (_) {
+                _controller.text = taskStore.newTask;
+                return TextField(
+                  controller: _controller,
+                  onChanged: taskStore.setNewTask,
+                  decoration: InputDecoration(
+                    labelText: taskStore.taskBeingEditedIndex == null
+                        ? 'Enter a task'
+                        : 'Edit task',
+                  ),
+                  onSubmitted: (_) => taskStore.addTask(),
+                );
+              },
             ),
             const SizedBox(height: 10),
 
-            // Add button
-            ElevatedButton(
-              onPressed: taskStore.addTask,
-              child: const Text('ADD'),
+            Observer(
+              builder: (_) => ElevatedButton(
+                onPressed: taskStore.addTask,
+                child: Text(
+                    taskStore.taskBeingEditedIndex == null ? 'ADD' : 'SAVE'),
+              ),
             ),
 
             const SizedBox(height: 20),
 
-            // List of tasks
             Expanded(
               child: Observer(
                 builder: (_) => ListView.builder(
@@ -48,6 +57,23 @@ class _TaskPageState extends State<TaskPage> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(taskStore.tasks[index]),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit),
+                            onPressed: () {
+                              taskStore.startEditingTask(index);
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              taskStore.removeTask(index);
+                            },
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
