@@ -1,9 +1,9 @@
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/is_logged_repository.dart';
-import 'package:project_list_fliutter/src/modules/auth/infra/datasources/auth_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/adapters/auth_adapter.dart';
+import 'package:project_list_fliutter/src/modules/auth/infra/datasources/get_user_datasource.dart';
 
 class IsLoggedRepositoryImpl implements IsLoggedRepository {
-  final IAuthDatasource datasource;
+  final IGetUserDatasource datasource;
 
   IsLoggedRepositoryImpl(this.datasource);
 

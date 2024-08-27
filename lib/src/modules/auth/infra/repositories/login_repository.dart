@@ -1,9 +1,9 @@
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/login_repository.dart';
-import 'package:project_list_fliutter/src/modules/auth/infra/datasources/auth_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/adapters/auth_adapter.dart';
+import 'package:project_list_fliutter/src/modules/auth/infra/datasources/login_datasource.dart';
 
 class LoginRepositoryImpl implements ILoginRepository {
-  final IAuthDatasource datasource;
+  final ILoginDatasource datasource;
 
   LoginRepositoryImpl(this.datasource);
 

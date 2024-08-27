@@ -1,8 +1,8 @@
 import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart';
-import 'package:project_list_fliutter/src/modules/task/domain/repositories/tasks_repository.dart'; 
+import 'package:project_list_fliutter/src/modules/task/domain/repositories/post_task_repository.dart';
 
 class AddTaskUseCase {
-  final TaskRepository repository;
+  final IPostTaskRepository repository;
 
   AddTaskUseCase(this.repository);
 
