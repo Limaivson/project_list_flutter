@@ -25,7 +25,6 @@ class PostAddTasksDatasource implements ISaveTaskDatasource {
       if (response.statusCode == 200) {
         final responseJson = json.decode(response.body);
         if (responseJson['task'] == true) {
-          // Task adicionada com sucesso
           return;
         } else {
           throw ExternalError('Failed to add task');

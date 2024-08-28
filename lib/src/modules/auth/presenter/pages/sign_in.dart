@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:project_list_fliutter/src/modules/auth/presenter/stores/sign_in_store.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -13,6 +14,12 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> with WindowListener {
   final formStore = Modular.get<FormStore>();
+
+  @override
+  void initState() {
+    super.initState();
+    reaction((react) => formStore.isLogged, (action) => Modular.to.navigate('/sign_up'));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +58,9 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                       ? const CircularProgressIndicator()
                       : const Text('Sign In'),
                 ),
+                const ElevatedButton(
+                  onPressed: null
+                , child: Text('SignUp'))
               ],
             );
           },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:project_list_fliutter/src/modules/task/presenter/stores/task_store.dart';
+import 'package:window_manager/window_manager.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
@@ -10,9 +11,16 @@ class TaskPage extends StatefulWidget {
   State<TaskPage> createState() => _TaskPageState();
 }
 
-class _TaskPageState extends State<TaskPage> {
-  final TaskStore taskStore = Modular.get<TaskStore>();
+class _TaskPageState extends State<TaskPage> with WindowListener {
+  //final taskStore = Modular.get<TaskStore>();
+  late final TaskStore taskStore;
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    taskStore = context.read<TaskStore>();
+  }
 
   @override
   Widget build(BuildContext context) {

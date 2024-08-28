@@ -1,3 +1,4 @@
+import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/login_repository.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/adapters/auth_adapter.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
@@ -8,15 +9,16 @@ class LoginRepositoryImpl implements ILoginRepository {
 
   LoginRepositoryImpl(this.datasource);
 
-  //retornar um User
   @override
-  Future<User> login(String username, String password) async {
+  Future<(User?, CredentialsError?)> login(String username, String password) async {
     try {
       final userProto = await datasource.login(username, password);
-
-      final userModel = AuthAdapter.decodeProto(userProto.writeToBuffer());
-
-      return userModel;
+      if (userProto is User) {
+         final userModel = AuthAdapter.decodeProto((userProto as User).writeToBuffer());
+        return (userModel, null);
+      } else {
+        throw CredentialsError('Invalid response type');
+      }
     } catch (e) {
       throw Error();
     }

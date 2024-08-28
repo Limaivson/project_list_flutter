@@ -22,6 +22,6 @@ class TaskModule extends Module {
 
   @override
   void routes(r) {
-    r.child('/tasks', child: (context) => const TaskPage());
+    r.child(Modular.initialRoute, child: (context) => const TaskPage());
   }
 }

@@ -14,9 +14,10 @@ import 'package:project_list_fliutter/src/modules/auth/presenter/pages/sign_in.d
 import 'package:project_list_fliutter/src/modules/auth/presenter/pages/sign_up.dart';
 import 'package:project_list_fliutter/src/modules/auth/presenter/stores/sign_in_store.dart';
 import 'package:project_list_fliutter/src/modules/auth/presenter/stores/sign_up_store.dart';
-import 'package:project_list_fliutter/src/modules/task/presenter/pages/tasks.dart';
+import 'package:project_list_fliutter/src/modules/tasks_module.dart';
 
 class AuthModule extends Module {
+
   @override
   void binds(i) {
     i.add(http.Client.new);
@@ -43,14 +44,14 @@ class AuthModule extends Module {
 
     i.addSingleton<SignUpStore>(SignUpStore.new);
     i.addSingleton<FormStore>(FormStore.new);
+
   }
 
   @override
   void routes(r) {
     r.child(Modular.initialRoute, child: (context) => const SignInPage());
     r.child('/sign_up', child: (context) => SignUpPage());
+    r.module('/tasks', module: TaskModule());
 
-    //chamar o modulo de task
-    r.child('/tasks', child: (context) => const TaskPage());
   }
 }

@@ -70,8 +70,6 @@ abstract class _SignUpStore with Store {
       //   );
       // }
 
-      //reaction para o user que ira mudar e chamar a pagina 
-      Modular.to.navigate('/tasks');
       
     } on CredentialsError catch (e) {
       errorMessage = e.message;

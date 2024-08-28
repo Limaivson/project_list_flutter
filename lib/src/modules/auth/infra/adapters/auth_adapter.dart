@@ -13,11 +13,11 @@ class AuthAdapter {
 
   static Uint8List encodeProto(User userModel) {
     try {
-      final userProto = User();
-        userProto.id = userModel.id;
-        userProto.name = userModel.name;
-        userProto.password = userModel.password;
-      return userProto.writeToBuffer();
+      // final userProto = User();
+      //   userProto.id = userModel.id;
+      //   userProto.name = userModel.name;
+      //   userProto.password = userModel.password;
+      return userModel.writeToBuffer();
     } catch (e) {
       throw Error;
     }

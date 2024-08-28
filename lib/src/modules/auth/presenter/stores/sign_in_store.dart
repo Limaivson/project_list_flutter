@@ -11,14 +11,15 @@ abstract class _FormStore with Store {
 
   _FormStore(this.loginUseCase);
 
-  @observable
   String username = '';
 
-  @observable
   String password = '';
 
   @observable
   bool isLoading = false;
+
+  @observable
+  bool isLogged = false;
 
   @observable
   String errorMessage = '';
@@ -46,9 +47,9 @@ abstract class _FormStore with Store {
     try {
       isLoading = true;
       errorMessage = '';
-      final userId = await loginUseCase.execute(username, password);
+      final user = await loginUseCase.execute(username, password);
+    
 
-      print('User ID: $userId');
     } on CredentialsError catch (e) {
       errorMessage = e.message;
     } catch (e) {

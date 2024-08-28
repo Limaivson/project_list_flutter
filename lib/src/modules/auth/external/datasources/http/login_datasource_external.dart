@@ -13,7 +13,7 @@ class LoginDatasourceExternal implements ILoginDatasource {
     LoginDatasourceExternal(this.client);
 
     @override
-    Future<User> login(String username, String password) async {
+    Future<(User?, CredentialsError?)> login(String username, String password) async {
       try {
         final userProto = User()
           ..name = username
@@ -32,11 +32,9 @@ class LoginDatasourceExternal implements ILoginDatasource {
           final responseBodyString = String.fromCharCodes(response.bodyBytes);
 
           if (responseBodyString == 'User not found') {
-            //verficiar se é correto a chamada aqui (nao é)
-            Modular.to.navigate('/sign_up');
             throw const ExternalError('Usuário não encontrado.');
           } else {
-            return AuthAdapter.decodeProto(response.bodyBytes);
+            return (AuthAdapter.decodeProto(response.bodyBytes), null);
           }
         } else {
           throw const ExternalError(

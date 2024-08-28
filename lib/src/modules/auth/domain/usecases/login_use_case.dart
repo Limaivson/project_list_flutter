@@ -7,7 +7,7 @@ class LoginUseCase {
 
   LoginUseCase(this.repository);
 
-  Future<User> execute(String username, String password) async {
+  Future<(User?, CredentialsError?)> execute(String username, String password) async {
     try {
       final token = await repository.login(username, password);
       return token;
