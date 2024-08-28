@@ -13,13 +13,16 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> with WindowListener {
-  final formStore = Modular.get<FormStore>();
-
+  late final FormStore formStore;
+  
   @override
   void initState() {
     super.initState();
+    formStore = context.read<FormStore>();
     reaction((react) => formStore.isLogged, (action) => Modular.to.navigate('/sign_up'));
   }
+
+
 
   @override
   Widget build(BuildContext context) {

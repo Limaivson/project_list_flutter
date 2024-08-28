@@ -2,11 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:project_list_fliutter/src/modules/auth/presenter/stores/sign_up_store.dart';
+import 'package:window_manager/window_manager.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    final signUpStore = Modular.get<SignUpStore>();
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> with WindowListener {
+  
+
+  late final SignUpStore signUpStore;
+    
+    @override
+    void initState() {
+      super.initState();
+      signUpStore = context.read<SignUpStore>();
+    }
+
+    @override
+    Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
