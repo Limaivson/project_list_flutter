@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:project_list_fliutter/src/modules/task/presenter/stores/task_store.dart';
 
 class TaskPage extends StatefulWidget {
-  const TaskPage({Key? key}) : super(key: key);
+  const TaskPage({super.key});
 
   @override
   State<TaskPage> createState() => _TaskPageState();
 }
 
 class _TaskPageState extends State<TaskPage> {
-  final TaskStore taskStore = TaskStore();
+  final TaskStore taskStore = Modular.get<TaskStore>();
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -29,27 +30,21 @@ class _TaskPageState extends State<TaskPage> {
                 return TextField(
                   controller: _controller,
                   onChanged: taskStore.setNewTask,
-                  decoration: InputDecoration(
-                    labelText: taskStore.taskBeingEditedIndex == null
-                        ? 'Enter a task'
-                        : 'Edit task',
+                  decoration: const InputDecoration(
+                    labelText: 'Enter a task',
                   ),
                   onSubmitted: (_) => taskStore.addTask(),
                 );
               },
             ),
             const SizedBox(height: 10),
-
             Observer(
               builder: (_) => ElevatedButton(
                 onPressed: taskStore.addTask,
-                child: Text(
-                    taskStore.taskBeingEditedIndex == null ? 'ADD' : 'SAVE'),
+                child: const Text('ADD'),
               ),
             ),
-
             const SizedBox(height: 20),
-
             Expanded(
               child: Observer(
                 builder: (_) => ListView.builder(
@@ -57,22 +52,11 @@ class _TaskPageState extends State<TaskPage> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(taskStore.tasks[index]),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () {
-                              taskStore.startEditingTask(index);
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
-                              taskStore.removeTask(index);
-                            },
-                          ),
-                        ],
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          taskStore.tasks.removeAt(index);
+                        },
                       ),
                     );
                   },

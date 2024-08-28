@@ -1,18 +1,20 @@
 import 'package:mobx/mobx.dart';
+import 'package:project_list_fliutter/src/modules/task/domain/usecases/add_task_use_case.dart';
 
 part 'task_store.g.dart';
 
 class TaskStore = _TaskStore with _$TaskStore;
 
 abstract class _TaskStore with Store {
+  final AddTaskUseCase addTaskUseCase;
+
+  _TaskStore(this.addTaskUseCase);
+
   @observable
   ObservableList<String> tasks = ObservableList<String>();
 
   @observable
   String newTask = '';
-
-  @observable
-  int? taskBeingEditedIndex;
 
   @action
   void setNewTask(String value) {
@@ -20,45 +22,15 @@ abstract class _TaskStore with Store {
   }
 
   @action
-  void addTask() {
+  Future<void> addTask() async {
     if (newTask.isNotEmpty) {
-      if (taskBeingEditedIndex != null) {
-        tasks[taskBeingEditedIndex!] = newTask;
-        taskBeingEditedIndex = null; 
-      } else {
+      try {
+        await addTaskUseCase.addTask(newTask);
         tasks.add(newTask);
+        newTask = '';
+      } catch (e) {
+        print('Error adding task: $e');
       }
-      newTask = ''; 
     }
   }
-
-  @action
-  void removeTask(int index) {
-    if (index >= 0 && index < tasks.length) {
-      tasks.removeAt(index);
-    }
-  }
-
-  @action
-  void startEditingTask(int index) {
-    if (index >= 0 && index < tasks.length) {
-      taskBeingEditedIndex = index;
-      newTask = tasks[index]; 
-    }
-  }
-
-  @action
-  void cancelEditing() {
-    taskBeingEditedIndex = null;
-    newTask = '';
-  }
-
-  @action
-  void updateTask(String updatedTask) {
-    if (taskBeingEditedIndex != null && updatedTask.isNotEmpty) {
-      tasks[taskBeingEditedIndex!] = updatedTask;
-      taskBeingEditedIndex = null; 
-      newTask = ''; 
-  }
-}
 }

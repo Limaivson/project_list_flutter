@@ -23,54 +23,6 @@ mixin _$SignUpStore on _SignUpStore, Store {
           Computed<bool>(() => super.isValid, name: '_SignUpStore.isValid'))
       .value;
 
-  late final _$usernameAtom =
-      Atom(name: '_SignUpStore.username', context: context);
-
-  @override
-  String get username {
-    _$usernameAtom.reportRead();
-    return super.username;
-  }
-
-  @override
-  set username(String value) {
-    _$usernameAtom.reportWrite(value, super.username, () {
-      super.username = value;
-    });
-  }
-
-  late final _$passwordAtom =
-      Atom(name: '_SignUpStore.password', context: context);
-
-  @override
-  String get password {
-    _$passwordAtom.reportRead();
-    return super.password;
-  }
-
-  @override
-  set password(String value) {
-    _$passwordAtom.reportWrite(value, super.password, () {
-      super.password = value;
-    });
-  }
-
-  late final _$confirmPasswordAtom =
-      Atom(name: '_SignUpStore.confirmPassword', context: context);
-
-  @override
-  String get confirmPassword {
-    _$confirmPasswordAtom.reportRead();
-    return super.confirmPassword;
-  }
-
-  @override
-  set confirmPassword(String value) {
-    _$confirmPasswordAtom.reportWrite(value, super.confirmPassword, () {
-      super.confirmPassword = value;
-    });
-  }
-
   late final _$isLoadingAtom =
       Atom(name: '_SignUpStore.isLoading', context: context);
 
@@ -150,9 +102,6 @@ mixin _$SignUpStore on _SignUpStore, Store {
   @override
   String toString() {
     return '''
-username: ${username},
-password: ${password},
-confirmPassword: ${confirmPassword},
 isLoading: ${isLoading},
 errorMessage: ${errorMessage},
 isPasswordMatch: ${isPasswordMatch},

@@ -12,14 +12,10 @@ abstract class _SignUpStore with Store {
 
   _SignUpStore(this.registerUseCase);
 
-  //apenas variavel
-  @observable
   String username = '';
 
-  @observable
   String password = '';
 
-  @observable
   String confirmPassword = '';
 
   @observable

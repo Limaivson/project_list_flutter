@@ -39,6 +39,14 @@ mixin _$TaskStore on _TaskStore, Store {
     });
   }
 
+  late final _$addTaskAsyncAction =
+      AsyncAction('_TaskStore.addTask', context: context);
+
+  @override
+  Future<void> addTask() {
+    return _$addTaskAsyncAction.run(() => super.addTask());
+  }
+
   late final _$_TaskStoreActionController =
       ActionController(name: '_TaskStore', context: context);
 
@@ -48,17 +56,6 @@ mixin _$TaskStore on _TaskStore, Store {
         _$_TaskStoreActionController.startAction(name: '_TaskStore.setNewTask');
     try {
       return super.setNewTask(value);
-    } finally {
-      _$_TaskStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void addTask() {
-    final _$actionInfo =
-        _$_TaskStoreActionController.startAction(name: '_TaskStore.addTask');
-    try {
-      return super.addTask();
     } finally {
       _$_TaskStoreActionController.endAction(_$actionInfo);
     }
