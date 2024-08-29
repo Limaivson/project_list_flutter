@@ -24,6 +24,14 @@ abstract class _FormStore with Store {
   @observable
   String errorMessage = '';
 
+  @observable
+  bool navigatePage = false;
+
+  @action
+  void linkToPage() {
+    navigatePage = true;
+  }
+
   @action
   void setUsername(String value) {
     username = value;
@@ -48,8 +56,11 @@ abstract class _FormStore with Store {
       isLoading = true;
       errorMessage = '';
       final user = await loginUseCase.execute(username, password);
-    
-
+      if (user != null) {
+        isLogged = true;
+      } else {
+        errorMessage = 'Failed to login. Please try again.';
+      }
     } on CredentialsError catch (e) {
       errorMessage = e.message;
     } catch (e) {

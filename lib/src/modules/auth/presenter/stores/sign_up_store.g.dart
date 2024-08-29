@@ -55,12 +55,29 @@ mixin _$SignUpStore on _SignUpStore, Store {
     });
   }
 
+  late final _$isAuthAtom = Atom(name: '_SignUpStore.isAuth', context: context);
+
+  @override
+  bool get isAuth {
+    _$isAuthAtom.reportRead();
+    return super.isAuth;
+  }
+
+  @override
+  set isAuth(bool value) {
+    _$isAuthAtom.reportWrite(value, super.isAuth, () {
+      super.isAuth = value;
+    });
+  }
+
   late final _$registerAsyncAction =
       AsyncAction('_SignUpStore.register', context: context);
 
   @override
-  Future<void> register() {
-    return _$registerAsyncAction.run(() => super.register());
+  Future<bool> register(
+      String userName, String password, String confirmPassword) {
+    return _$registerAsyncAction
+        .run(() => super.register(userName, password, confirmPassword));
   }
 
   late final _$_SignUpStoreActionController =
@@ -104,6 +121,7 @@ mixin _$SignUpStore on _SignUpStore, Store {
     return '''
 isLoading: ${isLoading},
 errorMessage: ${errorMessage},
+isAuth: ${isAuth},
 isPasswordMatch: ${isPasswordMatch},
 isValid: ${isValid}
     ''';

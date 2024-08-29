@@ -16,38 +16,6 @@ mixin _$FormStore on _FormStore, Store {
           Computed<bool>(() => super.isValid, name: '_FormStore.isValid'))
       .value;
 
-  late final _$usernameAtom =
-      Atom(name: '_FormStore.username', context: context);
-
-  @override
-  String get username {
-    _$usernameAtom.reportRead();
-    return super.username;
-  }
-
-  @override
-  set username(String value) {
-    _$usernameAtom.reportWrite(value, super.username, () {
-      super.username = value;
-    });
-  }
-
-  late final _$passwordAtom =
-      Atom(name: '_FormStore.password', context: context);
-
-  @override
-  String get password {
-    _$passwordAtom.reportRead();
-    return super.password;
-  }
-
-  @override
-  set password(String value) {
-    _$passwordAtom.reportWrite(value, super.password, () {
-      super.password = value;
-    });
-  }
-
   late final _$isLoadingAtom =
       Atom(name: '_FormStore.isLoading', context: context);
 
@@ -61,6 +29,22 @@ mixin _$FormStore on _FormStore, Store {
   set isLoading(bool value) {
     _$isLoadingAtom.reportWrite(value, super.isLoading, () {
       super.isLoading = value;
+    });
+  }
+
+  late final _$isLoggedAtom =
+      Atom(name: '_FormStore.isLogged', context: context);
+
+  @override
+  bool get isLogged {
+    _$isLoggedAtom.reportRead();
+    return super.isLogged;
+  }
+
+  @override
+  set isLogged(bool value) {
+    _$isLoggedAtom.reportWrite(value, super.isLogged, () {
+      super.isLogged = value;
     });
   }
 
@@ -80,6 +64,22 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
+  late final _$navigatePageAtom =
+      Atom(name: '_FormStore.navigatePage', context: context);
+
+  @override
+  bool get navigatePage {
+    _$navigatePageAtom.reportRead();
+    return super.navigatePage;
+  }
+
+  @override
+  set navigatePage(bool value) {
+    _$navigatePageAtom.reportWrite(value, super.navigatePage, () {
+      super.navigatePage = value;
+    });
+  }
+
   late final _$loginAsyncAction =
       AsyncAction('_FormStore.login', context: context);
 
@@ -90,6 +90,17 @@ mixin _$FormStore on _FormStore, Store {
 
   late final _$_FormStoreActionController =
       ActionController(name: '_FormStore', context: context);
+
+  @override
+  void linkToPage() {
+    final _$actionInfo =
+        _$_FormStoreActionController.startAction(name: '_FormStore.linkToPage');
+    try {
+      return super.linkToPage();
+    } finally {
+      _$_FormStoreActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void setUsername(String value) {
@@ -116,10 +127,10 @@ mixin _$FormStore on _FormStore, Store {
   @override
   String toString() {
     return '''
-username: ${username},
-password: ${password},
 isLoading: ${isLoading},
+isLogged: ${isLogged},
 errorMessage: ${errorMessage},
+navigatePage: ${navigatePage},
 isValid: ${isValid}
     ''';
   }

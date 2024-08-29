@@ -6,7 +6,7 @@ class AddTaskUseCase {
 
   AddTaskUseCase(this.repository);
 
-  Future<void> addTask(String task) async {
+  Future<bool?> addTask(String task) async {
     try {
       final removeTask = await repository.addTask(task);
       return removeTask;

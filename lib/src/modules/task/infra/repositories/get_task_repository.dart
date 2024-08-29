@@ -1,25 +1,34 @@
-import 'package:project_list_fliutter/src/modules/task/domain/repositories/get_task_repository.dart';
-import 'package:project_list_fliutter/src/modules/task/infra/adapters/task_adapter.dart';
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
+import 'package:project_list_fliutter/src/modules/task/external/datasources/server_routes.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
+import 'package:project_list_fliutter/src/modules/task/infra/adapters/task_adapter.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/datasources/get_all_tasks_datasource.dart';
-import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart';
 
-class GetTaskRepositoryImpl implements IGetTaskRepository {
-  final IGetAllTasksDatasource datasource;
+class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
+  final http.Client client;
 
-  GetTaskRepositoryImpl(this.datasource);
+  GetTaskDatasourceExternal(this.client);
 
   @override
-  Future<List<Task>> getTasks(String userId) async {
+  Future<List<Task>> getAllTasks(String userId) async {
     try {
-      final tasksProtoList = await datasource.getAllTasks(userId);
+      final uri = Uri.parse(updateResponseRoute); 
 
-      return tasksProtoList.map((proto) {
-        final task = TaskAdapter.decodeProto(proto);
-        return task;
-      }).toList();
+      final response = await client.get(
+        uri,
+        headers: {'User-ID': userId},
+      );
+
+      if (response.statusCode == 200) {
+        final Uint8List responseBodyBytes = response.bodyBytes;
+        final tasksProto = Tasks.fromBuffer(responseBodyBytes);
+        return tasksProto.tasks; 
+      } else {
+        throw Exception('Failed to load tasks');
+      }
     } catch (e) {
-      throw GetTaskError('Failed to fetch tasks', StackTrace.current);
+      throw Exception('Failed to fetch tasks: ${e.toString()}');
     }
   }
 }

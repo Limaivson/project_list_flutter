@@ -1,3 +1,3 @@
 abstract class IPostTaskRepository {
-  Future<void> addTask(String task);
+  Future<bool?> addTask(String task);
 }

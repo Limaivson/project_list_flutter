@@ -39,6 +39,9 @@ abstract class _SignUpStore with Store {
     confirmPassword = value;
   }
 
+  @observable
+  bool isAuth = false;
+
   @computed
   bool get isPasswordMatch => password == confirmPassword;
 
@@ -50,33 +53,25 @@ abstract class _SignUpStore with Store {
       isPasswordMatch;
 
   @action
-  Future<void> register() async {
-    if (!isValid) {
-      errorMessage = 'invalido';
-      //errei - usar else 
-      return;
-    }
-
-    try {
+  Future<bool> register(
+      String userName, String password, String confirmPassword) async {
+    if (confirmPassword == password) {
       isLoading = true;
-      errorMessage = '';
-      //final userId = await registerUseCase.execute(username, password);
-
-      //chamar o modulo de task
-
-      // if (userId == true) {
-      //   Navigator.of(context as BuildContext).pushReplacement(
-      //     MaterialPageRoute(builder: (context) => SignInPage())
-      //   );
-      // }
-
-      
-    } on CredentialsError catch (e) {
-      errorMessage = e.message;
-    } catch (e) {
-      errorMessage = 'Erro';
-    } finally {
+      final (result, error) = await registerUseCase.execute(userName, password);
       isLoading = false;
+
+      if (result == true) {
+        isAuth = true;
+        return true;
+      } else if (error != null) {
+        errorMessage = error.message;
+        return false;
+      }
+    } else {
+      //errorMessage = 'Passwords do not match';
+      return false;
     }
+
+    return false;
   }
 }

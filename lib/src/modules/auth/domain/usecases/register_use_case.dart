@@ -6,14 +6,15 @@ class RegisterUseCase {
 
   RegisterUseCase(this.repository);
 
-  Future<bool> execute(String username, String password) async {
+  @override
+  Future<(bool?, CredentialsError?)> execute(String username, String password) async {
     try {
-      final userId = await repository.register(username, password);
-      return userId;
+      final (success, error) = await repository.register(username, password);
+      return (success, error);
     } on ExternalError catch (e) {
-      throw CredentialsError('Failed to register: ${e.message}', e.stackTrace);
+      return (null, CredentialsError('Failed to register: ${e.message}', e.stackTrace));
     } catch (e, stackTrace) {
-      throw AuthError('Unexpected error during registration', stackTrace);
+      return (null, CredentialsError('Unexpected error during registration', stackTrace));
     }
   }
 }

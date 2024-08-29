@@ -14,15 +14,31 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> with WindowListener {
   late final FormStore formStore;
-  
+
   @override
   void initState() {
     super.initState();
     formStore = context.read<FormStore>();
-    reaction((react) => formStore.isLogged, (action) => Modular.to.navigate('/sign_up'));
+
+    reaction(
+      (_) => formStore.isLogged,
+      (isLogged) {
+        if (isLogged) {
+          Modular.to.navigate('/tasks');
+        }
+      },
+    );
+
+    reaction(
+      (_) => formStore.navigatePage,
+      (navigate) {
+        if (navigate) {
+          Modular.to.navigate('/sign_up');
+          formStore.navigatePage = false;
+        }
+      },
+    );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +51,7 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
         child: Observer(
           builder: (_) {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (formStore.errorMessage.isNotEmpty)
                   Text(
@@ -61,9 +78,20 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                       ? const CircularProgressIndicator()
                       : const Text('Sign In'),
                 ),
-                const ElevatedButton(
-                  onPressed: null
-                , child: Text('SignUp'))
+                const SizedBox(height: 20),
+                TextButton(
+                  onPressed: () {
+                    formStore.linkToPage();
+                  },
+                  child: const Text(
+                    'Don\'t have an account? Sign Up',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
               ],
             );
           },

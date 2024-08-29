@@ -17,21 +17,17 @@ import 'package:project_list_fliutter/src/modules/auth/presenter/stores/sign_up_
 import 'package:project_list_fliutter/src/modules/tasks_module.dart';
 
 class AuthModule extends Module {
-
   @override
   void binds(i) {
     i.add(http.Client.new);
 
     //datasource
 
-    //i.add<IAuthDatasource>(AuthDatasourceExternal.new);
-
     i.add<ILoginDatasource>(LoginDatasourceExternal.new);
     i.add<IRegisterDatasource>(RegisterDatasourceExternal.new);
 
     //repository
 
-    //i.add<AuthRepository>(AuthRepositoryImpl.new);
     i.add<IRegisterRepository>(RegisterRepositoryImpl.new);
     i.add<ILoginRepository>(LoginRepositoryImpl.new);
 
@@ -44,14 +40,13 @@ class AuthModule extends Module {
 
     i.addSingleton<SignUpStore>(SignUpStore.new);
     i.addSingleton<FormStore>(FormStore.new);
-
   }
 
   @override
   void routes(r) {
     r.child(Modular.initialRoute, child: (context) => const SignInPage());
-    r.child('/sign_up', child: (context) => SignUpPage());
+    r.child('/sign_in', child: (context) => const SignInPage());
+    r.child('/sign_up', child: (context) => const SignUpPage());
     r.module('/tasks', module: TaskModule());
-
   }
 }

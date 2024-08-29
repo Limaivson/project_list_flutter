@@ -11,30 +11,18 @@ class PostAddTasksDatasource implements ISaveTaskDatasource {
   PostAddTasksDatasource(this.client);
 
   @override
-  Future<void> saveTask(Uint8List taskProto) async {
+  Future<bool?> saveTask(Uint8List taskEncoded) async {
     try {
-      final uri = Uri.parse(addTaskRoute);
-      final response = await client.post(
-        uri,
-        headers: {
-          'Content-Type': 'application/octet-stream',
-        },
-        body: taskProto,
+      final res = await client.post(
+        Uri.parse(addTaskRoute),
+        body: taskEncoded,
       );
-
-      if (response.statusCode == 200) {
-        final responseJson = json.decode(response.body);
-        if (responseJson['task'] == true) {
-          return;
-        } else {
-          throw ExternalError('Failed to add task');
-        }
-      } else {
-        throw ExternalError(
-            'Failed to add task with status code: ${response.statusCode}');
+      if (res.statusCode == 200) {
+        return true;
       }
     } catch (e) {
-      throw ExternalError('Failed to save task: ${e.toString()}');
+      throw ExternalError('error to connect with server, $e');
     }
+    return null;
   }
 }

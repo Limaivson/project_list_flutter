@@ -24,10 +24,10 @@ class CreateTaskError extends TasksError {
   const CreateTaskError(super.message, [super.stackTrace]);
 }
 
-class RemoveTaskError extends TasksError {
-  const RemoveTaskError(super.message, [super.stackTrace]);
-}
+// class RemoveTaskError extends TasksError {
+//   const RemoveTaskError(super.message, [super.stackTrace]);
+// }
 
-class UpdateTaskError extends TasksError {
-  const UpdateTaskError(super.message, [super.stackTrace]);
-}
+// class UpdateTaskError extends TasksError {
+//   const UpdateTaskError(super.message, [super.stackTrace]);
+// }
