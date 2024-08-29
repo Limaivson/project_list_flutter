@@ -53,8 +53,7 @@ abstract class _SignUpStore with Store {
       isPasswordMatch;
 
   @action
-  Future<bool> register(
-      String userName, String password, String confirmPassword) async {
+  Future<bool> register(String userName, String password, String confirmPassword) async {
     if (confirmPassword == password) {
       isLoading = true;
       final (result, error) = await registerUseCase.execute(userName, password);

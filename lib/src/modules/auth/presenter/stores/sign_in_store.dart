@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/usecases/login_use_case.dart';
+import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 
 part 'sign_in_store.g.dart';
 
@@ -27,6 +28,9 @@ abstract class _FormStore with Store {
   @observable
   bool navigatePage = false;
 
+  @observable
+  User? loggedUser;
+
   @action
   void linkToPage() {
     navigatePage = true;
@@ -45,26 +49,31 @@ abstract class _FormStore with Store {
   @computed
   bool get isValid => password.isNotEmpty && username.isNotEmpty;
 
-  @action
-  Future<void> login() async {
-    if (!isValid) {
+   @action
+  Future<void> doLogin() async {
+    if (username.isEmpty || password.isEmpty) {
       errorMessage = 'Please fill in all fields correctly';
       return;
     }
 
+    isLoading = true;
+    errorMessage = '';
+
     try {
-      isLoading = true;
-      errorMessage = '';
       final user = await loginUseCase.execute(username, password);
+
       if (user != null) {
+        loggedUser = user;
+        print('Login successful: ${loggedUser?.name}');
         isLogged = true;
+        errorMessage = '';
       } else {
-        errorMessage = 'Failed to login. Please try again.';
+        errorMessage = 'User not found';
+        print(errorMessage);
       }
-    } on CredentialsError catch (e) {
-      errorMessage = e.message;
     } catch (e) {
-      errorMessage = 'Unexpected error occurred';
+      errorMessage = 'Usuário não existe';
+      print('Login error: $errorMessage');
     } finally {
       isLoading = false;
     }

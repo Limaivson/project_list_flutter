@@ -14,7 +14,7 @@ class RegisterRepositoryImpl implements IRegisterRepository {
       if (userProto != null) {
         return (true, null);  // suuucesso, retorna true e nenhum erro
       } else {
-        return (false, CredentialsError('Registration failed'));  // falhei, retorna false e um erro
+        return (false, const CredentialsError('Registration failed'));  // falhei, retorna false e um erro
       }
     } catch (e) {
       return (false, CredentialsError('An unexpected error occurred during registration: ${e.toString()}'));

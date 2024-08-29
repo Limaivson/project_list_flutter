@@ -1,5 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/usecases/add_task_use_case.dart';
+import 'package:project_list_fliutter/src/modules/task/domain/usecases/get_task_use_case.dart';
+import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
 
 part 'task_store.g.dart';
 
@@ -7,8 +9,9 @@ class TaskStore = _TaskStore with _$TaskStore;
 
 abstract class _TaskStore with Store {
   final AddTaskUseCase addTaskUseCase;
+  final GetTaskUseCase getTaskUseCase;
 
-  _TaskStore(this.addTaskUseCase);
+  _TaskStore(this.addTaskUseCase, this.getTaskUseCase);
 
   @observable
   ObservableList<String> tasks = ObservableList<String>();
@@ -21,6 +24,8 @@ abstract class _TaskStore with Store {
     newTask = value;
   }
 
+  String errorMessage = '';
+
   @action
   Future<void> addTask() async {
     if (newTask.isNotEmpty) {
@@ -31,6 +36,17 @@ abstract class _TaskStore with Store {
       } catch (e) {
         print('Error adding task: $e');
       }
+    }
+  }
+
+  @action
+  Future<void> loadTaskHistory(String userId) async {
+    try {
+      List<Task> tasks = await getTaskUseCase.getTasks(userId);
+      tasks = ObservableList.of(tasks);
+      print('cheguei');
+    } catch (e) {
+      errorMessage = '';
     }
   }
 }

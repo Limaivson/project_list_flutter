@@ -80,12 +80,28 @@ mixin _$FormStore on _FormStore, Store {
     });
   }
 
-  late final _$loginAsyncAction =
-      AsyncAction('_FormStore.login', context: context);
+  late final _$loggedUserAtom =
+      Atom(name: '_FormStore.loggedUser', context: context);
 
   @override
-  Future<void> login() {
-    return _$loginAsyncAction.run(() => super.login());
+  User? get loggedUser {
+    _$loggedUserAtom.reportRead();
+    return super.loggedUser;
+  }
+
+  @override
+  set loggedUser(User? value) {
+    _$loggedUserAtom.reportWrite(value, super.loggedUser, () {
+      super.loggedUser = value;
+    });
+  }
+
+  late final _$doLoginAsyncAction =
+      AsyncAction('_FormStore.doLogin', context: context);
+
+  @override
+  Future<void> doLogin() {
+    return _$doLoginAsyncAction.run(() => super.doLogin());
   }
 
   late final _$_FormStoreActionController =
@@ -131,6 +147,7 @@ isLoading: ${isLoading},
 isLogged: ${isLogged},
 errorMessage: ${errorMessage},
 navigatePage: ${navigatePage},
+loggedUser: ${loggedUser},
 isValid: ${isValid}
     ''';
   }

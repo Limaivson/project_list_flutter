@@ -24,7 +24,7 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
       (_) => formStore.isLogged,
       (isLogged) {
         if (isLogged) {
-          Modular.to.navigate('/tasks');
+          Modular.to.navigate('/tasks/', arguments: formStore.loggedUser);
         }
       },
     );
@@ -69,11 +69,9 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: formStore.isLoading
-                      ? null
-                      : () {
-                          formStore.login();
-                        },
+                  onPressed: () async {
+                    await formStore.doLogin();
+                  },
                   child: formStore.isLoading
                       ? const CircularProgressIndicator()
                       : const Text('Sign In'),
@@ -88,7 +86,6 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
                     style: TextStyle(
                       color: Colors.blue,
                       fontSize: 16,
-                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),

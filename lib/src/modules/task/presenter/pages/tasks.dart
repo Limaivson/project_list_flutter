@@ -5,14 +5,14 @@ import 'package:project_list_fliutter/src/modules/task/presenter/stores/task_sto
 import 'package:window_manager/window_manager.dart';
 
 class TaskPage extends StatefulWidget {
-  const TaskPage({super.key});
+  final String? userName;
+  const TaskPage({super.key, this.userName});
 
   @override
   State<TaskPage> createState() => _TaskPageState();
 }
 
 class _TaskPageState extends State<TaskPage> with WindowListener {
-  //final taskStore = Modular.get<TaskStore>();
   late final TaskStore taskStore;
   final TextEditingController _controller = TextEditingController();
 
@@ -20,6 +20,7 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
   void initState() {
     super.initState();
     taskStore = context.read<TaskStore>();
+    //taskStore.loadTaskHistory();
   }
 
   @override

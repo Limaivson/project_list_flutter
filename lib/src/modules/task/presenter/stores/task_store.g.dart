@@ -47,6 +47,15 @@ mixin _$TaskStore on _TaskStore, Store {
     return _$addTaskAsyncAction.run(() => super.addTask());
   }
 
+  late final _$loadTaskHistoryAsyncAction =
+      AsyncAction('_TaskStore.loadTaskHistory', context: context);
+
+  @override
+  Future<void> loadTaskHistory(String userId) {
+    return _$loadTaskHistoryAsyncAction
+        .run(() => super.loadTaskHistory(userId));
+  }
+
   late final _$_TaskStoreActionController =
       ActionController(name: '_TaskStore', context: context);
 

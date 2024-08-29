@@ -1,34 +1,20 @@
-import 'dart:typed_data';
-import 'package:http/http.dart' as http;
-import 'package:project_list_fliutter/src/modules/task/external/datasources/server_routes.dart';
+import 'package:project_list_fliutter/src/modules/task/domain/repositories/get_task_repository.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
-import 'package:project_list_fliutter/src/modules/task/infra/adapters/task_adapter.dart';
 import 'package:project_list_fliutter/src/modules/task/infra/datasources/get_all_tasks_datasource.dart';
 
-class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
-  final http.Client client;
+class GetTaskRepositoryImpl implements IGetTaskRepository {
+  final IGetAllTasksDatasource datasource;
 
-  GetTaskDatasourceExternal(this.client);
+  GetTaskRepositoryImpl(this.datasource);
 
   @override
-  Future<List<Task>> getAllTasks(String userId) async {
+  Future<List<Task>> getTasks(String userId) async {
     try {
-      final uri = Uri.parse(updateResponseRoute); 
-
-      final response = await client.get(
-        uri,
-        headers: {'User-ID': userId},
-      );
-
-      if (response.statusCode == 200) {
-        final Uint8List responseBodyBytes = response.bodyBytes;
-        final tasksProto = Tasks.fromBuffer(responseBodyBytes);
-        return tasksProto.tasks; 
-      } else {
-        throw Exception('Failed to load tasks');
-      }
+      List<Task> tasks = await datasource.getAllTasks(userId);
+      return tasks.isNotEmpty ? tasks : <Task>[];
     } catch (e) {
       throw Exception('Failed to fetch tasks: ${e.toString()}');
     }
   }
 }
+

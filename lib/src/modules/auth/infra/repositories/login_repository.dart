@@ -1,7 +1,6 @@
 import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/login_repository.dart';
-import 'package:project_list_fliutter/src/modules/auth/infra/adapters/auth_adapter.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/datasources/login_datasource.dart';
 
 class LoginRepositoryImpl implements ILoginRepository {
@@ -18,7 +17,7 @@ class LoginRepositoryImpl implements ILoginRepository {
         return (null, error);
       }
       if (user == null) {
-        throw CredentialsError('Invalid response from the server');
+        throw const CredentialsError('Invalid response from the server');
       }
       return (user, null);
     } catch (e) {

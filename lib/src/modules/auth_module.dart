@@ -47,6 +47,6 @@ class AuthModule extends Module {
     r.child(Modular.initialRoute, child: (context) => const SignInPage());
     r.child('/sign_in', child: (context) => const SignInPage());
     r.child('/sign_up', child: (context) => const SignUpPage());
-    r.module('/tasks', module: TaskModule());
+    r.module('/tasks/', module: TaskModule());
   }
 }

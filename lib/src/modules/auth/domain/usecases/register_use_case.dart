@@ -6,7 +6,6 @@ class RegisterUseCase {
 
   RegisterUseCase(this.repository);
 
-  @override
   Future<(bool?, CredentialsError?)> execute(String username, String password) async {
     try {
       final (success, error) = await repository.register(username, password);

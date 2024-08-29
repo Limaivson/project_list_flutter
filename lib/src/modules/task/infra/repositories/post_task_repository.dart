@@ -12,16 +12,13 @@ class PostTaskRepositoryImpl implements IPostTaskRepository {
   @override
   Future<bool?> addTask(String task) async {
     try {
-      // Cria um objeto Task a partir da String recebida
       final taskProto = Task()
-        ..id = '' // Gere ou receba o ID necessário
+        ..id = '' 
         ..task = task
-        ..userId = ''; // Configure o userId adequadamente
+        ..userId = ''; 
 
-      // Converte para Uint8List utilizando o Adapter
       final taskData = TaskAdapter.encodeProto(taskProto);
 
-      // Salva a task através do datasource
       await datasource.saveTask(taskData);
     } catch (e) {
       throw CreateTaskError('Failed to save task', StackTrace.current);
