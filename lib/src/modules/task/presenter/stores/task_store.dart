@@ -41,12 +41,16 @@ abstract class _TaskStore with Store {
 
   @action
   Future<void> loadTaskHistory(String userId) async {
+    print('Loading task history for user ID: $userId');
     try {
-      List<Task> tasks = await getTaskUseCase.getTasks(userId);
-      tasks = ObservableList.of(tasks);
-      print('cheguei');
+      List<Task> taskList = await getTaskUseCase.getTasks(userId);
+      print('Tasks loaded: ${taskList.map((task) => task.task).toList()}');
+      tasks = ObservableList.of(taskList.map((task) => task.task).toList()); 
     } catch (e) {
-      errorMessage = '';
+      errorMessage = 'Failed to load tasks';
+      print('Error loading task history: $e');
     }
   }
+
+
 }

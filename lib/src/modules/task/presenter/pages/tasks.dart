@@ -6,8 +6,8 @@ import 'package:window_manager/window_manager.dart';
 
 class TaskPage extends StatefulWidget {
   //chamar id
-  final String? userName;
-  const TaskPage({super.key, this.userName});
+  final String? userId;
+  const TaskPage({super.key, this.userId});
 
   @override
   State<TaskPage> createState() => _TaskPageState();
@@ -16,12 +16,21 @@ class TaskPage extends StatefulWidget {
 class _TaskPageState extends State<TaskPage> with WindowListener {
   late final TaskStore taskStore;
   final TextEditingController _controller = TextEditingController();
-
+  String? userId;
+  
   @override
   void initState() {
     super.initState();
     taskStore = context.read<TaskStore>();
-    //taskStore.loadTaskHistory();
+
+    // Obtenha o userId dos argumentos da navegação
+    userId = Modular.args.data?['userId'] as String?;
+    if (userId != null) {
+      print('Loading task history for user: $userId');
+      taskStore.loadTaskHistory(userId!);
+    } else {
+      print('User ID is null');
+    }
   }
 
   @override
@@ -62,12 +71,12 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(taskStore.tasks[index]),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          taskStore.tasks.removeAt(index);
-                        },
-                      ),
+                      // trailing: IconButton(
+                      //   icon: const Icon(Icons.delete),
+                      //   onPressed: () {
+                      //     taskStore.tasks.removeAt(index);
+                      //   },
+                      // ),
                     );
                   },
                 ),

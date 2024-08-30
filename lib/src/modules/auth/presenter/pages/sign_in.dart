@@ -24,7 +24,15 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
       (_) => formStore.isLogged,
       (isLogged) {
         if (isLogged) {
-          Modular.to.navigate('/tasks/', arguments: formStore.loggedUser);
+          final userId = formStore.loggedUser?.id;
+          if (userId != null) {
+            Modular.to.navigate('/tasks/',
+                arguments: {'userId': formStore.loggedUser?.id});
+            print('navegou com: $userId');
+            print(userId);
+          } else {
+            print('User ID is not available');
+          }
         }
       },
     );

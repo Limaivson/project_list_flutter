@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:project_list_fliutter/src/modules/task/external/datasources/server_routes.dart';
@@ -22,7 +23,13 @@ class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
       if (response.statusCode == 200) {
         final Uint8List responseBodyBytes = response.bodyBytes;
         final tasksProto = Tasks.fromBuffer(responseBodyBytes);
-        return tasksProto.tasks;
+        return tasksProto.tasks
+            .map((task) => Task(
+                  id: task.id,
+                  task: task.task,
+                  userId: task.userId,
+                ))
+            .toList();
       } else {
         throw Exception('Failed to load tasks');
       }
