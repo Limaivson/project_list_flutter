@@ -10,7 +10,7 @@ class PostTaskRepositoryImpl implements IPostTaskRepository {
   PostTaskRepositoryImpl(this.datasource);
 
   @override
-  Future<bool?> addTask(String task) async {
+  Future<Task> addTask(String task) async {
     try {
       final taskProto = Task()
         ..id = '' 
@@ -20,9 +20,9 @@ class PostTaskRepositoryImpl implements IPostTaskRepository {
       final taskData = TaskAdapter.encodeProto(taskProto);
 
       await datasource.saveTask(taskData);
+      return taskProto;
     } catch (e) {
       throw CreateTaskError('Failed to save task', StackTrace.current);
     }
-    return null;
   }
 }

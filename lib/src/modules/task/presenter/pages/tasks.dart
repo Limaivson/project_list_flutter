@@ -68,7 +68,7 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
                   itemCount: taskStore.tasks.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(taskStore.tasks[index]),
+                      title: Text(taskStore.newTask),
                       // trailing: IconButton(
                       //   icon: const Icon(Icons.delete),
                       //   onPressed: () {

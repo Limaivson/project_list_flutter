@@ -12,13 +12,13 @@ mixin _$TaskStore on _TaskStore, Store {
   late final _$tasksAtom = Atom(name: '_TaskStore.tasks', context: context);
 
   @override
-  ObservableList<String> get tasks {
+  ObservableList<Task> get tasks {
     _$tasksAtom.reportRead();
     return super.tasks;
   }
 
   @override
-  set tasks(ObservableList<String> value) {
+  set tasks(ObservableList<Task> value) {
     _$tasksAtom.reportWrite(value, super.tasks, () {
       super.tasks = value;
     });
@@ -36,6 +36,22 @@ mixin _$TaskStore on _TaskStore, Store {
   set newTask(String value) {
     _$newTaskAtom.reportWrite(value, super.newTask, () {
       super.newTask = value;
+    });
+  }
+
+  late final _$errorMessageAtom =
+      Atom(name: '_TaskStore.errorMessage', context: context);
+
+  @override
+  String get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
     });
   }
 
@@ -74,7 +90,8 @@ mixin _$TaskStore on _TaskStore, Store {
   String toString() {
     return '''
 tasks: ${tasks},
-newTask: ${newTask}
+newTask: ${newTask},
+errorMessage: ${errorMessage}
     ''';
   }
 }

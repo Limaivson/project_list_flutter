@@ -1,12 +1,13 @@
 import 'package:project_list_fliutter/src/modules/task/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/task/domain/repositories/post_task_repository.dart';
+import 'package:project_list_fliutter/src/modules/task/infra/comm_packages/proto/pb/tasks.pb.dart';
 
 class AddTaskUseCase {
   final IPostTaskRepository repository;
 
   AddTaskUseCase(this.repository);
 
-  Future<bool?> addTask(String task) async {
+  Future<Task> addTask(String task) async {
     try {
       final removeTask = await repository.addTask(task);
       return removeTask;

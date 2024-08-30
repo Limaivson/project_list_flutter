@@ -23,7 +23,7 @@ class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
       print('Response headers: ${response.headers}');
       print('Response body: ${response.body}');
 
-
+      //refaz - proto diretamente
       if (response.statusCode == 200) {
         final Uint8List responseBodyBytes = response.bodyBytes;
         final tasksProto = Tasks.fromBuffer(responseBodyBytes);

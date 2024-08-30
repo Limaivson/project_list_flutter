@@ -14,24 +14,27 @@ abstract class _TaskStore with Store {
   _TaskStore(this.addTaskUseCase, this.getTaskUseCase);
 
   @observable
-  ObservableList<String> tasks = ObservableList<String>();
+  ObservableList<Task> tasks = ObservableList<Task>();
 
   @observable
   String newTask = '';
+
+  @observable
+  String errorMessage = '';
 
   @action
   void setNewTask(String value) {
     newTask = value;
   }
 
-  String errorMessage = '';
-
   @action
   Future<void> addTask() async {
     if (newTask.isNotEmpty) {
       try {
-        await addTaskUseCase.addTask(newTask);
-        tasks.add(newTask);
+        Task task = await addTaskUseCase.addTask(newTask);
+
+        tasks.add(task);
+        print(task);
         newTask = '';
       } catch (e) {
         print('Error adding task: $e');
@@ -44,14 +47,13 @@ abstract class _TaskStore with Store {
     print('Loading task history for user ID: $userId');
     try {
       List<Task> taskList = await getTaskUseCase.getTasks(userId);
+
       print('Tasks loaded: ${taskList.map((task) => task.task).toList()}');
-      tasks = ObservableList.of(taskList.map((task) => task.task).toList());
+
+      tasks = ObservableList.of(taskList);
     } catch (e) {
       errorMessage = 'Failed to load tasks';
       print('Error loading task history: $e');
     }
   }
-
-
-
 }
