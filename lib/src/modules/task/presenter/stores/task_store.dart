@@ -45,12 +45,13 @@ abstract class _TaskStore with Store {
     try {
       List<Task> taskList = await getTaskUseCase.getTasks(userId);
       print('Tasks loaded: ${taskList.map((task) => task.task).toList()}');
-      tasks = ObservableList.of(taskList.map((task) => task.task).toList()); 
+      tasks = ObservableList.of(taskList.map((task) => task.task).toList());
     } catch (e) {
       errorMessage = 'Failed to load tasks';
       print('Error loading task history: $e');
     }
   }
+
 
 
 }

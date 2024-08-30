@@ -49,6 +49,7 @@ abstract class _FormStore with Store {
   @computed
   bool get isValid => password.isNotEmpty && username.isNotEmpty;
 
+
   @action
   Future<void> doLogin() async {
     if (username.isEmpty || password.isEmpty) {

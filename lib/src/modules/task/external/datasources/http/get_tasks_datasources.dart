@@ -17,8 +17,12 @@ class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
 
       final response = await client.get(
         uri,
-        headers: {'User-ID': userId},
+        headers: {'id': userId},
       );
+      print('Response status: ${response.statusCode}');
+      print('Response headers: ${response.headers}');
+      print('Response body: ${response.body}');
+
 
       if (response.statusCode == 200) {
         final Uint8List responseBodyBytes = response.bodyBytes;

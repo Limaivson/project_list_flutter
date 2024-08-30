@@ -17,13 +17,11 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
   late final TaskStore taskStore;
   final TextEditingController _controller = TextEditingController();
   String? userId;
-  
+
   @override
   void initState() {
     super.initState();
     taskStore = context.read<TaskStore>();
-
-    // Obtenha o userId dos argumentos da navegação
     userId = Modular.args.data?['userId'] as String?;
     if (userId != null) {
       print('Loading task history for user: $userId');
