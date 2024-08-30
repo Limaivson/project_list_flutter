@@ -49,11 +49,10 @@ abstract class _FormStore with Store {
   @computed
   bool get isValid => password.isNotEmpty && username.isNotEmpty;
 
-   @action
+  @action
   Future<void> doLogin() async {
     if (username.isEmpty || password.isEmpty) {
       errorMessage = 'Please fill in all fields correctly';
-      return;
     }
 
     isLoading = true;

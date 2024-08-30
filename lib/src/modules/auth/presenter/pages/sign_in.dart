@@ -19,6 +19,7 @@ class _SignInPageState extends State<SignInPage> with WindowListener {
   void initState() {
     super.initState();
     formStore = context.read<FormStore>();
+    formStore.errorMessage = '';
 
     reaction(
       (_) => formStore.isLogged,
