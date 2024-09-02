@@ -37,13 +37,12 @@ abstract class _TaskStore with Store {
       try {
         final task = await addTaskUseCase.addTask(actualTask, userId);
         tasks.add(actualTask);
-        print(actualTask);
         newTask = '';
         if (task.$2 != null) {
         return true;
       }
       } catch (e) {
-        print('Error adding task: $e');
+        errorMessage = 'Failed to add tasks';
       }
     }
     return false;
@@ -52,16 +51,11 @@ abstract class _TaskStore with Store {
 
   @action
   Future<void> loadTaskHistory(String userId) async {
-    print('Loading task history for user ID: $userId');
     try {
       List<Task> taskList = await getTaskUseCase.getTasks(userId);
-
-      print('Tasks loaded: ${taskList.map((task) => task.task).toList()}');
-
       tasks = ObservableList.of(taskList);
     } catch (e) {
       errorMessage = 'Failed to load tasks';
-      print('Error loading task history: $e');
     }
   }
 }

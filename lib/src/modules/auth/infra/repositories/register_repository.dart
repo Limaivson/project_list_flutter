@@ -10,13 +10,9 @@ class RegisterRepositoryImpl implements IRegisterRepository {
   @override
   Future<(bool?, CredentialsError?)> register(String username, String password) async {
     try {
-      final userProto = await datasource.register(username, password);
-      if (userProto != null) {
-        return (true, null);  // suuucesso, retorna true e nenhum erro
-      } else {
-        return (false, const CredentialsError('Registration failed'));  // falhei, retorna false e um erro
-      }
-    } catch (e) {
+        await datasource.register(username, password);
+        return (true, null); 
+      } catch (e) {
       return (false, CredentialsError('An unexpected error occurred during registration: ${e.toString()}'));
     }
   }

@@ -23,10 +23,7 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
     taskStore = context.read<TaskStore>();
     userId = Modular.args.data?['userId'] as String?;
     if (userId != null) {
-      print('Loading task history for user: $userId');
       taskStore.loadTaskHistory(userId!);
-    } else {
-      print('User ID is null');
     }
   }
 
@@ -69,7 +66,7 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
                   itemBuilder: (context, index) {
                     final task = taskStore.tasks[index];
                     return ListTile(
-                      title: Text(task.task ?? ''),
+                      title: Text(task.task),
                     );
                   },
                 ),

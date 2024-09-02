@@ -19,8 +19,7 @@ class _SignUpPageState extends State<SignUpPage> with WindowListener {
   void initState() {
     super.initState();
     signUpStore = context.read<SignUpStore>();
-    reaction((react) => signUpStore.isLoading,
-        (action) => Modular.to.navigate('/sign_in'));
+    reaction((react) => signUpStore.isLoading, (action) => Modular.to.navigate('/sign_in'));
   }
 
   @override
