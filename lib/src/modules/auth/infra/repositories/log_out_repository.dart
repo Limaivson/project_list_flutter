@@ -1,7 +1,6 @@
 import 'package:project_list_fliutter/src/modules/auth/domain/repositories/is_logout_repository.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/datasources/logout_datasource.dart';
 
-// quero saber se deslogou ou quero a funcao de deslogar ??
 
 class LogOutRepositoryImpl implements ILogOutRepository {
   final ILogOutDatasource datasource;

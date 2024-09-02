@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/usecases/login_use_case.dart';
 import 'package:project_list_fliutter/src/modules/auth/infra/comm_packages/proto/user.pb.dart';
 
