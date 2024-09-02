@@ -6,7 +6,8 @@ class LogOutRepositoryImpl implements ILogOutRepository {
   final ILogOutDatasource datasource;
 
   LogOutRepositoryImpl(this.datasource);
-
+  // Aqui a função retorna um booleano para indicar se o logout foi bem sucedido ou não, 
+  // mas em outra camada que eu já não lembro mais tu não retornava nada
   @override
   Future<bool> isLogout() async {
     try {

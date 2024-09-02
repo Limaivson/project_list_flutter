@@ -15,6 +15,7 @@ class LoginRepositoryImpl implements ILoginRepository {
       if (error != null) {
         return (null, error);
       }
+      // Isso poderia estar no use case. Lembra que o use case é o teu 'contrato'
       if (user == null) {
         throw const CredentialsError('Invalid response from the server');
       }

@@ -50,7 +50,7 @@ abstract class _SignUpStore with Store {
       password.isNotEmpty &&
       confirmPassword.isNotEmpty &&
       isPasswordMatch;
-
+  // Mesma coisa do sign_in_store, você poderia pensar em uma maneira de limpar a msg de erro
   @action
   Future<bool> register(String userName, String password, String confirmPassword) async {
     if (confirmPassword == password) {

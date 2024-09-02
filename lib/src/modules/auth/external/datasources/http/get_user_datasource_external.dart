@@ -21,7 +21,7 @@ class GetUserDatasourceExternal implements IGetUserDatasource {
           final userProto = response.bodyBytes;
           return AuthAdapter.decodeProto(userProto);
         } else if (response.statusCode == 204) {
-          return null;
+          return null; // Tratar esse erro
         } else {
           throw const ExternalError('Falha ao obter o usuário atual.');
         }

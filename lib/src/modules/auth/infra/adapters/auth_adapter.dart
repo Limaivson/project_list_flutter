@@ -18,6 +18,7 @@ class AuthAdapter {
       return userModel.writeToBuffer();
     } catch (e) {
       // implements error de decode
+      // Você pode usar como na farmácia, onde temos erros para cada camada
       throw Error();
     }
   }

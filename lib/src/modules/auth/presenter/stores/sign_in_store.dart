@@ -48,7 +48,7 @@ abstract class _FormStore with Store {
   @computed
   bool get isValid => password.isNotEmpty && username.isNotEmpty;
 
-
+  // Você poder pensar em uma maneira de limpar a msg de erro
   @action
   Future<void> doLogin() async {
     if (username.isEmpty || password.isEmpty) {

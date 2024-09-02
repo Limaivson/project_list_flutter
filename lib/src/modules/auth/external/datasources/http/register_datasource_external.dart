@@ -25,6 +25,7 @@ class RegisterDatasourceExternal implements IRegisterDatasource {
       );
 
       // !!! qtd de else
+      // kkkkk não se preocupe com a quantidade de else, o importante é que o erro seja tratado
       if (response.statusCode == 200) {
         final responseBodyString = String.fromCharCodes(response.bodyBytes);
         if (responseBodyString == 'Registration successful') {

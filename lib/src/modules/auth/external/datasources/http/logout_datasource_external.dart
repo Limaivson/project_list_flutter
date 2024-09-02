@@ -14,7 +14,8 @@ class LogOutDatasourceExternal implements ILogOutDatasource {
       try {
         final uri = Uri.parse(signOUUserRoute);
         final response = await client.post(uri);
-
+        // Você recebe um booleano para indicar se o logout foi bem sucedido ou não
+        // tente usar isso para retornar uma indicação de sucesso ou falha ao usuário
         if (response.statusCode != 200) {
           throw const ExternalError('Falha ao sair. Tente novamente.');
         }
