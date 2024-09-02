@@ -64,16 +64,13 @@ abstract class _FormStore with Store {
 
       if (user != null) {
         loggedUser = user;
-        print('Login successful: ${loggedUser?.name}');
         isLogged = true;
         errorMessage = '';
       } else {
         errorMessage = 'User not found';
-        print(errorMessage);
       }
     } catch (e) {
       errorMessage = 'Usuário não existe';
-      print('Login error: $errorMessage');
     } finally {
       isLoading = false;
     }

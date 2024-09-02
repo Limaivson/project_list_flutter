@@ -1,6 +1,4 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
-import 'package:project_list_fliutter/src/modules/auth/domain/errors/error_datasource.dart';
 import 'package:project_list_fliutter/src/modules/auth/domain/usecases/register_use_case.dart';
 
 part 'sign_up_store.g.dart';
@@ -67,7 +65,6 @@ abstract class _SignUpStore with Store {
         return false;
       }
     } else {
-      //errorMessage = 'Passwords do not match';
       return false;
     }
 
