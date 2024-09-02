@@ -5,7 +5,6 @@ import 'package:project_list_fliutter/src/modules/task/presenter/stores/task_sto
 import 'package:window_manager/window_manager.dart';
 
 class TaskPage extends StatefulWidget {
-  //chamar id
   final String? userId;
   const TaskPage({super.key, this.userId});
 
@@ -50,14 +49,15 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
                   decoration: const InputDecoration(
                     labelText: 'Enter a task',
                   ),
-                  onSubmitted: (_) => taskStore.addTask(),
                 );
               },
             ),
             const SizedBox(height: 10),
             Observer(
               builder: (_) => ElevatedButton(
-                onPressed: taskStore.addTask,
+                onPressed: () async {
+                  await taskStore.addTask(taskStore.newTask, userId!);
+                },
                 child: const Text('ADD'),
               ),
             ),
@@ -67,14 +67,9 @@ class _TaskPageState extends State<TaskPage> with WindowListener {
                 builder: (_) => ListView.builder(
                   itemCount: taskStore.tasks.length,
                   itemBuilder: (context, index) {
+                    final task = taskStore.tasks[index];
                     return ListTile(
-                      title: Text(taskStore.newTask),
-                      // trailing: IconButton(
-                      //   icon: const Icon(Icons.delete),
-                      //   onPressed: () {
-                      //     taskStore.tasks.removeAt(index);
-                      //   },
-                      // ),
+                      title: Text(task.task ?? ''),
                     );
                   },
                 ),

@@ -14,7 +14,9 @@ abstract class _TaskStore with Store {
   _TaskStore(this.addTaskUseCase, this.getTaskUseCase);
 
   @observable
-  ObservableList<Task> tasks = ObservableList<Task>();
+  List<Task> tasks = ObservableList<Task>();
+
+  final actualTask = Task();
 
   @observable
   String newTask = '';
@@ -28,19 +30,25 @@ abstract class _TaskStore with Store {
   }
 
   @action
-  Future<void> addTask() async {
+  Future<bool> addTask(String task, String userId) async {
+    actualTask.task = task;
+    
     if (newTask.isNotEmpty) {
       try {
-        Task task = await addTaskUseCase.addTask(newTask);
-
-        tasks.add(task);
-        print(task);
+        final task = await addTaskUseCase.addTask(actualTask, userId);
+        tasks.add(actualTask);
+        print(actualTask);
         newTask = '';
+        if (task.$2 != null) {
+        return true;
+      }
       } catch (e) {
         print('Error adding task: $e');
       }
     }
+    return false;
   }
+
 
   @action
   Future<void> loadTaskHistory(String userId) async {

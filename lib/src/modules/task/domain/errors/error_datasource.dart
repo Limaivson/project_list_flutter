@@ -28,6 +28,3 @@ class CreateTaskError extends TasksError {
 //   const RemoveTaskError(super.message, [super.stackTrace]);
 // }
 
-// class UpdateTaskError extends TasksError {
-//   const UpdateTaskError(super.message, [super.stackTrace]);
-// }

@@ -9,8 +9,7 @@ class LoginRepositoryImpl implements ILoginRepository {
   LoginRepositoryImpl(this.datasource);
 
   @override
-  Future<(User?, CredentialsError?)> login(
-      String username, String password) async {
+  Future<(User?, CredentialsError?)> login(String username, String password) async {
     try {
       final (user, error) = await datasource.login(username, password);
       if (error != null) {

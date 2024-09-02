@@ -12,13 +12,13 @@ mixin _$TaskStore on _TaskStore, Store {
   late final _$tasksAtom = Atom(name: '_TaskStore.tasks', context: context);
 
   @override
-  ObservableList<Task> get tasks {
+  List<Task> get tasks {
     _$tasksAtom.reportRead();
     return super.tasks;
   }
 
   @override
-  set tasks(ObservableList<Task> value) {
+  set tasks(List<Task> value) {
     _$tasksAtom.reportWrite(value, super.tasks, () {
       super.tasks = value;
     });
@@ -59,8 +59,8 @@ mixin _$TaskStore on _TaskStore, Store {
       AsyncAction('_TaskStore.addTask', context: context);
 
   @override
-  Future<void> addTask() {
-    return _$addTaskAsyncAction.run(() => super.addTask());
+  Future<bool> addTask(String task, String userId) {
+    return _$addTaskAsyncAction.run(() => super.addTask(task, userId));
   }
 
   late final _$loadTaskHistoryAsyncAction =

@@ -16,12 +16,12 @@ class TaskAdapter {
     }
   }
 
-  static Uint8List encodeProto(Task userModel) {
+  static Uint8List encodeProto(Task userModel, String userId) {
     try {
       final taskProto = Task()
         ..id = userModel.id
         ..task = userModel.task
-        ..userId = userModel.userId;
+        ..userId = userId;
       return taskProto.writeToBuffer();
     } catch (e) {
       throw Error;

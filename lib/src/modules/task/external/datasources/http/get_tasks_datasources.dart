@@ -19,9 +19,9 @@ class GetTaskDatasourceExternal implements IGetAllTasksDatasource {
         uri,
         headers: {'id': userId},
       );
-      print('Response status: ${response.statusCode}');
-      print('Response headers: ${response.headers}');
-      print('Response body: ${response.body}');
+      // print('Response status: ${response.statusCode}');
+      // print('Response headers: ${response.headers}');
+      // print('Response body: ${response.body}');
 
       //refaz - proto diretamente
       if (response.statusCode == 200) {

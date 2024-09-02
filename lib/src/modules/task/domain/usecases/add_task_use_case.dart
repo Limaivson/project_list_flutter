@@ -7,10 +7,10 @@ class AddTaskUseCase {
 
   AddTaskUseCase(this.repository);
 
-  Future<Task> addTask(String task) async {
+  Future<(bool?, CreateTaskError?)> addTask(Task task, String userId) async {
     try {
-      final removeTask = await repository.addTask(task);
-      return removeTask;
+      final addTask = await repository.addTask(task, userId);
+      return addTask;
     } on CreateTaskError catch (e) {
       throw ('Failed to create tasks: ${e.message}', e.stackTrace);
     } catch (e, stackTrace) {
