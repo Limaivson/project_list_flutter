@@ -9,7 +9,7 @@ class TaskAdapter {
       return Task(
         id: taskProto.id,
         task: taskProto.task,
-        userId: taskProto.userId,
+        userId: taskProto.userId, // talvez aqui seja necessário passar o userId, não tenho certeza então só verifica
       );
     } catch (e) {
       throw Error;
